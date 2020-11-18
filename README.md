@@ -16,22 +16,27 @@ Los servicios se comunican entre ellos a través de websockets (socketIO) y peti
 A continuación se describe brevemente la función de cada microservicio
 
 #### Core
-El core es el elemento central por el que pasan todos los mensajes y peticiones. Este microservicio sirve básicamente para ayudar a implementar el patrón publicador/suscriptor. La función del core es básicamente escuchar cualquier petición y volver a emitirla a través de su websocket. Esto hace que a la hora de añadir un nuevo servicio al sistema, conectándolo por socket al core sea posible escuchar los eventos que se deseen de cualquier servicio del sistema.
+El Core es el elemento central por el que pasan todos los mensajes y peticiones. Este microservicio sirve básicamente para ayudar a implementar el patrón publicador/suscriptor. La función del core es básicamente escuchar cualquier petición y volver a emitirla a través de su websocket. Esto hace que a la hora de añadir un nuevo servicio al sistema, conectándolo por socket al core sea posible escuchar los eventos que se deseen de cualquier servicio del sistema.
 
 #### Microlistener
-
+El Microlistener es la conexión entre los microcontroladores y el resto del sistema. podría verse como un clon digital del microcontrolador. Las peticiones que realiza el microcontrolador son muy básicas y el código crece y se ofusca con facilidad, por lo que realiza peticiones muy simples que luego este servicio se encarga de transmitir de forma más correcta al resto del sistema.
 
 #### Valvecommander
+El Valvecommander es el servicio encargado de abrir y cerrar la válvula de riego.
 
 #### Datastorer
+El Datastorer es el servicio encargado de subir a la base de datos las medidas de temperatura, humedades y riego.
 
 #### Flowservice
+El Flowservice recibe las señales de que el agua está pasando por el caudalímetro (esta información la envía el Microlistener que como se explicó, es el punto de entrada al sistema). Este servicio expone estos datos (caudal actual y volumen usado durante el presente riego) de forma que puedan ser consumidos por una aplicación web.
 
 #### Valveservice
+El Valveservice expone la válvula de riego de forma que pueda ser utilizada por un servicio web. Está suscrito al evento *watering* del caudalímetro, que indica el agua utilizada en el riego actual. Esto permite que además de una llamada simple para abrir la válvula (es nuestra responsabilidad luego emitir la llamada para cerrarla), también sea posible realizar una llamada indicando de antemano una cantidad de litros a emplear, tras lo cual la válvula se cerrará automáticamente. Esta llamada puede ser aprovechada por módulos lógicos de más alto nivel de abstracción para dotar de cierta inteligencia al riego.
 
 #### Webservice
+El Webservice se utiliza para exponer la base de datos de forma que pueda ser consumida por una API REST.
 
 #### Webserver
-
+El Webserver es un servidor web que ofrece la interfaz del sistema al usuario. Está hecho en Vue.js y consume los tres microservicios anteriores (Flowservice, Valveservice y Webservice). En realidad, debido a la arquitectura desacoplada del sistema, pueden realizarse tantos *front-ends* como se desee en cualquier tecnología, ya que únicamente hay que consumir los servicios ofrecidos.
 
 
