@@ -15,8 +15,23 @@ Los servicios se comunican entre ellos a través de websockets (socketIO) y peti
 ### Microservicios implicados
 A continuación se describe brevemente la función de cada microservicio
 
-#### Microlistener
-bla bla bla
-
 #### Core
-bla bla bla
+El core es el elemento central por el que pasan todos los mensajes y peticiones. Este microservicio sirve básicamente para ayudar a implementar el patrón publicador/suscriptor. La función del core es básicamente escuchar cualquier petición y volver a emitirla a través de su websocket. Esto hace que a la hora de añadir un nuevo servicio al sistema, conectándolo por socket al core sea posible escuchar los eventos que se deseen de cualquier servicio del sistema.
+
+#### Microlistener
+
+
+#### Valvecommander
+
+#### Datastorer
+
+#### Flowservice
+
+#### Valveservice
+
+#### Webservice
+
+#### Webserver
+
+
+
