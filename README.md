@@ -11,3 +11,12 @@ El proyecto utiliza una arquitectura basada en microservicios que implementan a 
 Los servicios se comunican entre ellos a través de websockets (socketIO) y peticiones HTTP. En el diagrama se detallan para cada microservicio las peticiones que se escuchan o se envían y qué tecnología de comunicación se emplea.
 
 ![](https://raw.githubusercontent.com/alexrcas/Greenhouse/main/greenhouse_diagram.svg)
+
+### Microservicios implicados
+A continuación se describe brevemente la función de cada microservicio
+
+#### Microlistener
+bla bla bla
+
+#### Core
+bla bla bla
